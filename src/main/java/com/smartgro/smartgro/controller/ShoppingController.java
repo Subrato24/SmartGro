@@ -1,9 +1,7 @@
 package com.smartgro.smartgro.controller;
 
-import com.smartgro.smartgro.dto.ShoppingDateSummaryDto;
 import com.smartgro.smartgro.dto.ShoppingRequestDto;
 import com.smartgro.smartgro.dto.ShoppingResponseDto;
-import com.smartgro.smartgro.entity.ShoppingDateSummary;
 import com.smartgro.smartgro.service.ShoppingDateSummaryService;
 import com.smartgro.smartgro.service.ShoppingService;
 import org.springframework.http.ResponseEntity;
@@ -66,10 +64,4 @@ public class ShoppingController {
         return ResponseEntity.ok("Item deleted successfully");
     }
 
-//    // Save summary (date + shop + total + userId)
-//    @PostMapping("/summary/save")
-//    public ResponseEntity<ShoppingDateSummary> saveSummary(@RequestBody ShoppingDateSummaryDto dto) {
-//        ShoppingDateSummary saved = summaryService.saveSummary(dto);
-//        return ResponseEntity.ok(saved);
-//    }
 }

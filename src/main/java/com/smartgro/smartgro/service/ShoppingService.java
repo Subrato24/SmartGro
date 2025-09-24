@@ -10,7 +10,6 @@ import com.smartgro.smartgro.repository.ItemRepository;
 import com.smartgro.smartgro.repository.ShopRepository;
 import com.smartgro.smartgro.repository.ShoppingRepository;
 import com.smartgro.smartgro.repository.UserRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,7 +17,6 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
 public class ShoppingService {
 
     private final ShoppingRepository shoppingRepository;

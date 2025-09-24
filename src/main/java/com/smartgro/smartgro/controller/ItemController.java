@@ -3,7 +3,6 @@ package com.smartgro.smartgro.controller;
 import com.smartgro.smartgro.dto.ItemDto;
 import com.smartgro.smartgro.entity.Item;
 import com.smartgro.smartgro.repository.ItemRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,7 +10,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/items")
 @CrossOrigin(origins = "http://localhost:5173")
-@RequiredArgsConstructor
 public class ItemController {
     private final ItemRepository itemRepository;
 

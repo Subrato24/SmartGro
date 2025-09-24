@@ -4,14 +4,12 @@ import com.smartgro.smartgro.dto.UserDto;
 import com.smartgro.smartgro.entity.User;
 import com.smartgro.smartgro.mapper.UserMapper;
 import com.smartgro.smartgro.repository.UserRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/users")
-@RequiredArgsConstructor
 public class UserController {
     public UserController(UserRepository userRepository) {
         this.userRepository = userRepository;
