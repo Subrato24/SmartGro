@@ -1,10 +1,6 @@
 package com.smartgro.smartgro.dto;
-
-import lombok.Data;
-
 import java.math.BigDecimal;
 
-@Data
 public class ShoppingRequestDto {
     private Long userId;
     private Long shopId;

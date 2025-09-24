@@ -1,18 +1,10 @@
 package com.smartgro.smartgro.entity;
-
 import jakarta.persistence.*;
-import lombok.*;
-
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "my_shopping")
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
 public class Shopping {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

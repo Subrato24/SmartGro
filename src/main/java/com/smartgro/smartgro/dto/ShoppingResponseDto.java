@@ -1,13 +1,7 @@
 package com.smartgro.smartgro.dto;
-
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-@Data
-@NoArgsConstructor
 public class ShoppingResponseDto {
     private Long id;
     private String userName;
