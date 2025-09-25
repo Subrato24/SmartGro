@@ -14,28 +14,21 @@ public class WebConfig {
     // CORS configuration source for Spring Security
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of(
-                "http://localhost:5173",
-                "http://10.246.45.4:5173"
+        CorsConfiguration config = new CorsConfiguration();
+
+        // ✅ Merge allowed origins
+        config.setAllowedOrigins(List.of(
+                "http://localhost:5173", // local dev
+                "https://samrtgrofront-production.up.railway.app" // production
         ));
-        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-        configuration.setAllowCredentials(true);
-        configuration.setAllowedHeaders(List.of("*")); // allow all headers
+
+        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        config.setAllowedHeaders(List.of("*")); // allow all headers
+        config.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
+        source.registerCorsConfiguration("/**", config);
+
         return source;
     }
-
-    // Security filter chain
-//    @Bean
-//    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-//        http
-//                .csrf(csrf -> csrf.disable())
-//                .authorizeHttpRequests(auth -> auth.anyRequest().permitAll())
-//                .cors(cors -> cors.configurationSource(corsConfigurationSource())); // use CorsConfigurationSource
-//
-//        return http.build();
-//    }
 }
