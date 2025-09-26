@@ -6,6 +6,8 @@ import com.smartgro.smartgro.entity.User;
 import com.smartgro.smartgro.repository.ShoppingDateSummaryRepository;
 import com.smartgro.smartgro.repository.UserRepository;
 import org.springframework.stereotype.Service;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.time.LocalDate;
 
@@ -14,6 +16,7 @@ public class ShoppingDateSummaryService {
     private final ShoppingDateSummaryRepository repository;
     private final EmailService emailService;
     private final UserRepository userRepository;
+    private static final Logger logger = LoggerFactory.getLogger(ShoppingDateSummaryService.class);
 
     public ShoppingDateSummaryService(ShoppingDateSummaryRepository repository, EmailService emailService, UserRepository userRepository) {
         this.repository = repository;
@@ -35,28 +38,33 @@ public class ShoppingDateSummaryService {
     }
 
     public void sendRecommendationEmail(Long userId) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+        try {
+            User user = userRepository.findById(userId)
+                    .orElseThrow(() -> new RuntimeException("User not found"));
 
-        // Find cheapest shop based on totalAmount
-        ShoppingDateSummary cheapest = repository.findTopByUserIdOrderByTotalAmountAsc(userId)
-                .orElse(null);
+            ShoppingDateSummary cheapest = repository.findTopByUserIdOrderByTotalAmountAsc(userId)
+                    .orElse(null);
 
-        if (cheapest != null) {
-            String subject = "Your Best Shop Recommendation";
-            String message = String.format(
-                    "Hey %s,\n\n" +
-                            "Thank you for using our application for your shopping experience!\n" +
-                            "Based on your shopping history, we recommend %s as the best shop for you.\n" +
-                            "You shopped there on %s with a total of ₹%.2f.\n\n" +
-                            "Take advantage of this and happy shopping!",
-                    user.getName(),
-                    cheapest.getShopName(),
-                    cheapest.getShoppingDate(),
-                    cheapest.getTotalAmount()
-            );
+            if (cheapest != null) {
+                String subject = "Your Best Shop Recommendation";
+                String message = String.format(
+                        "Hey %s,\n\nThank you for using our application!\n" +
+                                "We recommend %s as the best shop for you.\n" +
+                                "You shopped there on %s with a total of ₹%.2f.\n\nHappy shopping!",
+                        user.getName(),
+                        cheapest.getShopName(),
+                        cheapest.getShoppingDate(),
+                        cheapest.getTotalAmount()
+                );
 
-            emailService.sendEmail(user.getEmail(), subject, message);
+                emailService.sendEmail(user.getEmail(), subject, message);
+                logger.info("Recommendation email sent to {}", user.getEmail());
+            } else {
+                logger.info("No shopping summary found for userId {}", userId);
+            }
+        } catch (Exception e) {
+            logger.error("Error in sending recommendation email for userId {}: {}", userId, e.getMessage(), e);
         }
     }
+
 }
